@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../public/main.css">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <!-- nav.html를 여기에다가 첨부해주세요! -->
+    <%- include('nav.html') %>
+
+    <h4 class="m-5 text-center">고객센터</h4>
+
+    <ul class="list-group" style="height: 300px; overflow-y: scroll;">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+        <li class="list-group-item">A fourth item</li>
+        <li class="list-group-item">And a fifth one</li>
+    </ul>
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+            aria-describedby="button-addon2" id="main-input">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2">전송</button>
+    </div>
+
+    <div>
+        <button class="btn btn-secondary mx-auto d-block w-100 mt-1">방1</button>
+        <button class="btn btn-secondary mx-auto d-block w-100 mt-1">방2</button>
+
+    </div>
+
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+
+
+    <script>
+        var socket = io('/채팅방1');
+
+        $('.mt-1').eq(0).click(function(){
+            socket.emit('방들어가고픔', ); // emit = 서버에게 요청보는 것, '방들어가고픔'은 이벤트
+        })
+
+        $('.mt-1').eq(1).click(function(){
+            socket.emit('방들어가고픔', 'room2'); // emit = 서버에게 요청보는 것, '방들어가고픔'은 이벤트
+        })
+
+        $('#button-addon2').click(function () {
+            socket.emit('인삿말', $('#main-input').val());
+        });
+
+        socket.on('퍼트리기', function (data) {
+            $('.list-group').append('<li class="list-group-item">' + data + '</li>')
+            $('.list-group').scrollTop($('.list-group').prop('scrollHeight'));
+        });
+
+        // $('#join1').click(function () {
+        //     $('#button-addon2').click(function () {
+        //         socket.emit('인삿말', $('#main-input').val());
+        //     });
+
+        //     socket.on('퍼트리기', function (data) {
+        //         $('.list-group').append('<li class="list-group-item">' + data + '</li>')
+        //         $('.list-group').scrollTop($('.list-group').prop('scrollHeight'));
+        //     });
+        // })
+    </script>
+</body>
+
+</html>

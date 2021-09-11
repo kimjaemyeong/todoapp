@@ -48,6 +48,8 @@
                 <p>글번호 : <%= posts[i]._id %></p>
                 <h4> 할일 제목 : <%= posts[i].제목 %> </h4>
                 <p> 할일 마감날짜 : <%= posts[i].날짜 %> </p>
+                <p> 작성자 : <%= posts[i].작성자 %> </p>
+                <button class="btn btn-secondary" data-id="<%= posts[i]._id %>">수정</button>
                 <button class="btn btn-danger delete" data-id="<%= posts[i]._id %>">삭제</button>
             </li>
             <% } %>
